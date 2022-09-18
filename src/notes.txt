@@ -1,0 +1,63 @@
+imagine components as just function calls
+
+components will contain html code and js logic(if there are any dynamic links)
+
+react website can be made of many components (header, left nav, etc)
+
+// state 1
+function App() { // this is the root component, and when rendering this is rendered first, we can have a component tree (can keep nesting components)
+  // we can write any valid js code inside this function before we return
+  const title = "welcome" // {} to use variables
+  const likes = 50; // can output any type even array(converted to string when used) but not booleans and objects
+  // can also write dynamics value inside {} like {10}, {[1,2,3]} or some statement even
+
+  return (
+    <div className="App">
+      <Navbar /> 
+      <div className="content">
+        <h1> {title } </h1>
+        <p> liked {likes} times</p>
+      </div>
+    </div>
+  );
+}
+
+import './App.css'; // the styles wont just be applicable to app component but to all components in browser at that time because react just takes css file and adds it to head of webpage
+// (can use css modules to scope styles but can also have separate css files(for large projects), otherwise can have a single css file, will be doing that here)
+
+can do inline styling using style={ pass object inside it}
+style={{
+    color: "white",
+    backgroundColor: "somthing", // we don't do background-color here as - in js not!
+}}
+
+ // there are a lot of events, we can have functions for various events and call them when event occurs (like for onClick we can have handleClick)
+
+ // onClick={handleClick()} we shouldn't use () as that would call before even thing is clicked as functionName() is considered as function call 
+ // when the file is saved
+ // but how do we pass the parameters if we can;t have parenthesis --> use anonymous function
+ onClick = {() => {
+    handleClick('mario) // now this wont be called on saving the file
+ }
+ }
+ can remove curly braces if we put things in one line like this <button onClick={() => handleClick('mario')}>Click me</button>
+
+ We always get access to EVENT object when functions like above are called (using parameter e, in functions like handleClick)
+ 
+ state is just data being used in that component at that point of time (array, bool anything) - we used variables but what if we wanted to use data and update it and use later
+ 
+if we try to update normal variables from events although they change in code but don't get updated in template (because these variables are not reactive)
+when we make the value reactive then react detects thae changes and it rerenders that component where that value is used and we see value in browse
+to do this we use something called hook which is useState - gives a way to have reactive value and change it, 
+(hook in react is special type of function that does something, can tell a hook by name it starts it with 'use')
+
+const [name, setName] = useState('mario')
+// mario is the initial value, useState returns two things the variable and a function to change that variable 
+(when we change the value using this function that triggers react to rerender component)
+ we can use useState hook any number of times for any number of values of any type
+
+ If you have piece of template that can repeat break it into component
+
+ we cannot use data defined in one component to be used in other- we can use PROPS to pass data
+ if passing multiple things then we can destructure it
+We can pass different props to same component in two dofferent calls
